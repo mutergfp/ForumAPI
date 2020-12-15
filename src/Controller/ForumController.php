@@ -18,4 +18,12 @@ class ForumController extends AbstractController{
          return $this->render('index.html.twig');
      }
 
+    /**
+     * @Route("/post")
+     */
+
+     public function post(){
+         return $this->render('post_details.html.twig');
+     }
+
 }
