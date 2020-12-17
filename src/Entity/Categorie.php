@@ -10,7 +10,18 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 /**
- * @ApiResource
+ * @ApiResource(
+ *  collectionOperations={
+ *      "get",
+ *      "post"={"security"="is_granted('ROLE_ADMIN')"}
+ *  },
+ *  itemOperations={
+ *      "get",
+ *      "delete"={"security"="is_granted('ROLE_ADMIN')"},
+ *      "put"={"security"="is_granted('ROLE_ADMIN')"},
+ *      "patch"={"security"="is_granted('ROLE_ADMIN')"},
+ *  }
+ * )
  * @ORM\Entity(repositoryClass=CategorieRepository::class)
  * 
  */

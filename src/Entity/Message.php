@@ -8,7 +8,18 @@ use App\Repository\MessageRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource
+ * @ApiResource(
+ *  collectionOperations={
+ *      "get",
+ *      "post"={"security"="is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')"}
+ *  },
+ *  itemOperations={
+ *      "get",
+ *      "delete"={"security"="is_granted('ROLE_ADMIN')"},
+ *      "put"={"security"="is_granted('ROLE_ADMIN')"},
+ *      "patch"={"security"="is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')"},
+ *  }
+ * )
  * @ORM\Entity(repositoryClass=MessageRepository::class)
  */
 class Message

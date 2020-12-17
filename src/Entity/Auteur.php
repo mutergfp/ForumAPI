@@ -3,104 +3,127 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiProperty;
 use App\Repository\AuteurRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
 
 /**
- * @ApiResource
+ * @ApiResource(
+ *  collectionOperations={
+ *      "get"={"security"="is_granted('ROLE_ADMIN')"},
+ *      "post"={"security"="is_granted('ROLE_USER') == false"}
+ *  },
+ *  itemOperations={
+ *      "get",
+ *      "delete"={"security"="is_granted('ROLE_ADMIN')"},
+ *      "put"={"security"="is_granted('ROLE_ADMIN')"},
+ *      "patch"={"security"="is_granted('ROLE_ADMIN')"},
+ *  }
+ * )
  * @ORM\Entity(repositoryClass=AuteurRepository::class)
  */
-class Auteur
+class Auteur implements UserInterface
 {
-
     /**
-     * @var int 
-     * 
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @ApiProperty(identifier=true)
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $nom;
+    private $username;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="json")
      */
-    private $prenom;
+    private $roles = [];
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $date_creation;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $type_auteur;
-
-    public function __construct($nom, $prenom, $type_auteur = false){
-        $this->nom = $nom;
-        $this->prenom = $prenom;
-        $this->date_creation = new \DateTime();
-        $this->type_auteur = $type_auteur;
+    public function __construct($username, $roles){
+        $this->username = $username;
+        $this->roles = $roles;
     }
+    /**
+     * @var string The hashed password
+     * @ORM\Column(type="string")
+     */
+    private $password;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNom(): ?string
+
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUsername(): string
     {
-        return $this->nom;
+        return (string) $this->username;
     }
 
-    public function setNom(string $nom): self
+    public function setUsername(string $username): self
     {
-        $this->nom = $nom;
+        $this->username = $username;
 
         return $this;
     }
 
-    public function getPrenom(): ?string
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
     {
-        return $this->prenom;
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
     }
 
-    public function setPrenom(string $prenom): self
+    public function setRoles(array $roles): self
     {
-        $this->prenom = $prenom;
+        $this->roles = $roles;
 
         return $this;
     }
 
-    public function getDateCreation(): ?\DateTimeInterface
+    /**
+     * @see UserInterface
+     */
+    public function getPassword(): string
     {
-        return $this->date_creation;
+        return (string) $this->password;
     }
 
-    public function setDateCreation(\DateTimeInterface $date_creation): self
+    public function setPassword(string $password): self
     {
-        $this->date_creation = $date_creation;
+        $this->password = $password;
 
         return $this;
     }
 
-    public function getTypeAuteur(): ?bool
+    /**
+     * @see UserInterface
+     */
+    public function getSalt()
     {
-        return $this->type_auteur;
+        // not needed when using the "bcrypt" algorithm in security.yaml
     }
 
-    public function setTypeAuteur(bool $type_auteur): self
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
     {
-        $this->type_auteur = $type_auteur;
-
-        return $this;
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 }

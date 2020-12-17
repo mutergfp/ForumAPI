@@ -15,11 +15,8 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        // $product = new Product();
-        // $manager->persist($product);
-        $auteur = new Auteur("admin", "admin", true);
-        $manager->persist($auteur);
-        $message1 = new Message("Bonjour je souhaiterais mettre en place un array en php mais je ne sais pas comment faire", $auteur);
+        //Recherche user
+        /*$message1 = new Message("Bonjour je souhaiterais mettre en place un array en php mais je ne sais pas comment faire", $auteur);
         $message2 = new Message("Il suffit de faire array()", $auteur);
         $sujet = new Sujet("Comment mettre en place un array", $auteur);
         $sujet->addMessage($message1);
@@ -38,6 +35,6 @@ class AppFixtures extends Fixture
         $manager->persist($sujet);
         $manager->persist($message1);
         $manager->persist($message2);
-        $manager->flush();
+        $manager->flush();*/
     }
 }
