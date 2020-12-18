@@ -10,9 +10,23 @@ Developed with Symfony and API Platform
 
 `git clone https://github.com/mutergfp/ForumAPI.git`
 
+> From project directory
+
   Install dependencies
 
 `composer install`
+
+  Create the database
+
+`php bin/console doctrine:database:create`
+
+  Persist tables in the database
+
+`php bin/console doctrine:migrations:migrate`
+
+  Start the server
+
+`symfony serve`
 
 ## API Usage
 
