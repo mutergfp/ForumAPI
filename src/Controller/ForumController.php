@@ -11,7 +11,7 @@ use App\Utils\Forum;
 class ForumController extends AbstractController{
 
     /**
-     * @Route("")
+     * @Route("/", name="index")
      */
 
      public function index(){
