@@ -26,4 +26,4 @@ Developed with Symfony and API Platform
 
   Get the JWT : 
 
-`**$** curl -X POST -H "Content-Type: application/json" http://localhost:8000/api/login_check -d '{"username":"admin", "password":"admin"}'`
+`curl -X POST -H "Content-Type: application/json" http://localhost:8000/api/login_check -d '{"username":"admin", "password":"admin"}'`
