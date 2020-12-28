@@ -55,11 +55,13 @@ class Message
      */
     private $auteur;
 
-    public function __construct($contenu, $auteur){
+    public function __construct($contenu, $auteur, $sujet){
         $this->contenu = $contenu;
         $this->date_creation = new \DateTime();
-        $this->sujet = null;
+        $this->sujet = $sujet;
         $this->auteur = $auteur;
+
+        $this->sujet->addMessage($this);
     }
 
     public function getId(): ?int

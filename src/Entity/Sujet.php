@@ -63,12 +63,14 @@ class Sujet
      */
     private $messages;
 
-    public function __construct($nom, $auteur){
+    public function __construct($nom, $auteur, $categorie){
         $this->nom = $nom;
         $this->date_creation = new \DateTime();
-        $this->categorie = null;
+        $this->categorie = $categorie;
         $this->auteur = $auteur;
         $this->messages = new ArrayCollection();
+
+        $this->categorie->addSujet($this);
     }
 
     public function getId(): ?int
