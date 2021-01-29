@@ -18,11 +18,12 @@ class AuteurFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
 
-        $auteur = new Auteur("admin", array("ROLE_ADMIN"), "admin");
-        //$auteur->setPassword($this->passwordEncoder->encodePassword($auteur,"admin"));
+        /*$admin = new Auteur("admin", array("ROLE_ADMIN"), "admin");
+        $user = new Auteur("user", array("ROLE_USER"), "user");
 
-        $manager->persist($auteur);
+        $manager->persist($admin);
+        $manager->persist($user);
 
-        $manager->flush();
+        $manager->flush();*/
     }
 }
