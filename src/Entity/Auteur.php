@@ -12,11 +12,11 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 /**
  * @ApiResource(
  *  collectionOperations={
- *      "get"={"security"="is_granted('ROLE_ADMIN')"},
+ *      "get"={"security"="is_granted('ROLE_USER')"},
  *      "post"={"security"="is_granted('ROLE_USER') == false"}
  *  },
  *  itemOperations={
- *      "get",
+ *      "get"={"security"="is_granted('ROLE_USER')"},
  *      "delete"={"security"="is_granted('ROLE_ADMIN')"},
  *      "put"={"security"="is_granted('ROLE_ADMIN')"},
  *      "patch"={"security"="is_granted('ROLE_ADMIN')"},
